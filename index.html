@@ -51,14 +51,14 @@ ga('send', 'pageview');
 		<div class="input-group">
 		  <span class="input-group-addon">Width</span>
 		  <input id="width" type="text" class="form-control" value="640">
+		  <span class="input-group-addon">Density</span>
+		  <input id="densityX" type="text" class="form-control" value="10">
 		</div>
 		<div class="input-group">
 		  <span class="input-group-addon">Height</span>
 		  <input id="height" type="text" class="form-control" value="1136">
-		</div>
-		<div class="input-group">
 		  <span class="input-group-addon">Density</span>
-		  <input id="density" type="text" class="form-control" value="10">
+		  <input id="densityY" type="text" class="form-control" value="10">
 		</div>
 
 		<div class="input-group">
@@ -67,7 +67,7 @@ ga('send', 'pageview');
 		        <ul id="colors-dropdown" class="dropdown-menu">
 		        </ul>
           	</div>
-		  <input id="colors" type="text" class="form-control" value="#D12028, #52A346, #EC7B1F, #49622B, #F8B712, #8E2124, #2DA7A3">
+		  <input id="colors" type="text" class="form-control" value="#445555,#889999,#4499DD,#DDDDDD,#AACCCC">
 		</div>
 
 	<div class="row">
@@ -75,9 +75,6 @@ ga('send', 'pageview');
 		  <span class="glyphicon glyphicon-refresh"></span> Update
 		</button>
 
-		<!-- <button id="save" onclick="saveImage()" type="button" class="btn btn-primary btn-lg">
-		  <span class="glyphicon glyphicon-floppy-save"></span> Save
-		</button> -->
 		<a id="save" download="fragmented.png">
 		<button onclick="saveImage()" type="button" class="btn btn-primary btn-lg">
 		  <span class="glyphicon glyphicon-floppy-save"></span> Save

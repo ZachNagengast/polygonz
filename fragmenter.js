@@ -8,11 +8,13 @@ var shapeWidth;
 var shapeHeight;
 
 //constants
-var DENSITY_MAX=100;
+var DENSITY_MAX=200;
 var SHIM = 1;
 
 //color swatches
-var swatchNames=["Wordpress",
+var swatchNames=["Attack of the Mac",
+                 "Darkness",
+                 "Heavy Cream",
                  "Barcelona",
                  "Blue Humans",
                  "Buried at the Beach",
@@ -21,7 +23,6 @@ var swatchNames=["Wordpress",
                  "Boring Volcano",
                  "Light the Sky",
                  "Hackers",
-                 "Attack of the Mac",
                  "Tracert",
                  "City by Night",
                  "Wicked Witch",
@@ -30,9 +31,12 @@ var swatchNames=["Wordpress",
                  "Office Chair in the Clouds",
                  "Born to be a Winner",
                  "1969",
-                 "Teapots"
+                 "Teapots",
+                 "Wordpress"
                  ];
-var swatchValues=  ["#E96F23,#EC8B26,#ECB842,#6796B8,#5C556A",
+var swatchValues=  ["#445555,#889999,#4499DD,#DDDDDD,#AACCCC",
+                    "#444,#000,#040404,#080808,#0c0c0c,#101010,#141414,#181818,#1c1c1c,#202020,#242424,#282828,#2c2c2c,#000,#040404,#080808,#0c0c0c,#101010,#141414,#181818,#1c1c1c,#202020,#242424,#282828,#2c2c2c,#000,#040404,#080808,#0c0c0c,#101010,#141414,#181818,#1c1c1c,#202020,#242424,#282828,#2c2c2c",
+                    "#fff,#faf9f8,#f7f7f6,#f6f5f4,#f4f3f2,#f2f1f0,#eeedec,#eae9e8,#faf9f8,#f7f7f6,#f6f5f4,#f4f3f2,#f2f1f0,#eeedec,#eae9e8,#faf9f8,#f7f7f6,#f6f5f4,#f4f3f2,#f2f1f0,#eeedec,#eae9e8",
                     "#27282D,#474D4B,#F54296,#E0F635,#FDFFF7",
                     "#294052,#447294,#8FBCDB,#F4D6BC,#F8E4CC",
                     "#886655,#DD9977,#EECCAA,#EEEEEE,#CC99CC",
@@ -41,7 +45,6 @@ var swatchValues=  ["#E96F23,#EC8B26,#ECB842,#6796B8,#5C556A",
                     "#223333,#889999,#dd9988,#ddeedd,#bbcccc",
                     "#332244,#bb3355,#998899,#ff5555,#ffdd99",
                     "#FF6600,#F6F6EF,#828282,#000000",
-                    "#445555,#889999,#4499DD,#DDDDDD,#AACCCC",
                     "#2B2B2D,#166622,#2FBB4F,#922729",
                     "#332244,#5566aa,#aa7799,#dd9999,#ffdd99",
                     "#334444,#99aa88,#bbbbaa,#ddddcc,#ccccbb",
@@ -50,7 +53,8 @@ var swatchValues=  ["#E96F23,#EC8B26,#ECB842,#6796B8,#5C556A",
                     "#555588,#6688DD,#FFEEFF,#DDCCEE,#BBBBDD",
                     "#3366BB,#CCCCCC,#EEEEEE,#DDDDEE,#FFDD11",
                     "#443344,#aa5555,#668899,#dd8855,#cccccc",
-                    "#333355,#4455aa,#997777,#5577dd,#dd9977"
+                    "#333355,#4455aa,#997777,#5577dd,#dd9977",
+                    "#E96F23,#EC8B26,#ECB842,#6796B8,#5C556A"
                     ];
 
 function init()
@@ -69,18 +73,21 @@ function updateImage() {
     //define image parameters
     var widthInput = document.getElementById("width");
     var heightInput = document.getElementById("height");
-    var densityInput = document.getElementById("density");
+    var densityInputX = document.getElementById("densityX");
+    var densityInputY = document.getElementById("densityY");
     var colorsInput = document.getElementById("colors").value;
 
     canvasWidth = widthInput.value;
     canvasHeight = heightInput.value;
-    density = densityInput.value;
 
-    if (densityInput.value > DENSITY_MAX){
-        densityInput.value = DENSITY_MAX;
+    if (densityInputX.value > DENSITY_MAX){
+        densityInputX.value = DENSITY_MAX;
     }
-    shapeCountX = densityInput.value;
-    shapeCountY = densityInput.value;
+    if (densityInputY.value > DENSITY_MAX){
+        densityInputY.value = DENSITY_MAX;
+    }
+    shapeCountX = densityInputX.value;
+    shapeCountY = densityInputY.value;
 
     //parse colors
     colors=[""];
@@ -188,6 +195,7 @@ function saveImage() {
 
 function updateColors(sender) {
     document.getElementById("colors").value = swatchValues[searchStringInArray(sender.innerHTML, swatchNames)];
+    updateImage();
 }
 
 function searchStringInArray (str, strArray) {
