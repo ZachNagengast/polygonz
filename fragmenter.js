@@ -11,8 +11,61 @@ var shapeHeight;
 var DENSITY_MAX=100;
 var SHIM = 1;
 
+//color swatches
+var swatchNames=["Wordpress",
+                 "Barcelona",
+                 "Blue Humans",
+                 "Buried at the Beach",
+                 "Raptorize",
+                 "Cthulhu Rises",
+                 "Boring Volcano",
+                 "Light the Sky",
+                 "Hackers",
+                 "Attack of the Mac",
+                 "Tracert",
+                 "City by Night",
+                 "Wicked Witch",
+                 "Flying Monkeys",
+                 "Searching",
+                 "Office Chair in the Clouds",
+                 "Born to be a Winner",
+                 "1969",
+                 "Teapots"
+                 ];
+var swatchValues=  ["#E96F23,#EC8B26,#ECB842,#6796B8,#5C556A",
+                    "#27282D,#474D4B,#F54296,#E0F635,#FDFFF7",
+                    "#294052,#447294,#8FBCDB,#F4D6BC,#F8E4CC",
+                    "#886655,#DD9977,#EECCAA,#EEEEEE,#CC99CC",
+                    "#070A1E,#382230,#58423F,#888069,#C1BF95",
+                    "#553333,#99aaaa,#998866,#cccc99,#aabbaa",
+                    "#223333,#889999,#dd9988,#ddeedd,#bbcccc",
+                    "#332244,#bb3355,#998899,#ff5555,#ffdd99",
+                    "#FF6600,#F6F6EF,#828282,#000000",
+                    "#445555,#889999,#4499DD,#DDDDDD,#AACCCC",
+                    "#2B2B2D,#166622,#2FBB4F,#922729",
+                    "#332244,#5566aa,#aa7799,#dd9999,#ffdd99",
+                    "#334444,#99aa88,#bbbbaa,#ddddcc,#ccccbb",
+                    "#444466,#6666aa,#8888aa,#8877dd,#ccbbff",
+                    "#4D90FE,#DD4B39,#F1F1F1,#777777",
+                    "#555588,#6688DD,#FFEEFF,#DDCCEE,#BBBBDD",
+                    "#3366BB,#CCCCCC,#EEEEEE,#DDDDEE,#FFDD11",
+                    "#443344,#aa5555,#668899,#dd8855,#cccccc",
+                    "#333355,#4455aa,#997777,#5577dd,#dd9977"
+                    ];
+
 function init()
 {
+    //setup interface
+    var colorsDropdown = document.getElementById("colors-dropdown");
+    colorsDropdown.innerHTML ="";
+    for(var i=0;i<swatchNames.length;i++){
+        colorsDropdown.innerHTML += "<li><a href=\"#\" onclick=\"updateColors(this)\">"+swatchNames[i]+"</a></li>";
+    }
+
+    updateImage();
+}
+
+function updateImage() {
     //define image parameters
     var widthInput = document.getElementById("width");
     var heightInput = document.getElementById("height");
@@ -54,10 +107,8 @@ function init()
         nodeMatrix[i] = new Array(shapeCountY);
         for (j = 0; j < shapeCountY; j++) {
             nodeMatrix[i][j] = [x, y];
-
             y=y+1;
         }
-
         x=x+1;
         y=0;
     }
@@ -71,11 +122,6 @@ function init()
         //draw the image
         drawImage(nodeMatrix);
     }
-}
-
-function updateImage()
-{
-    init();
 }
 
 function drawImage(matrix) {
@@ -138,4 +184,15 @@ function saveImage() {
     var img = Canvas2Image.saveAsPNG(canvas, true);
     save.innerHTML = save.innerHTML+"<img src=\""+img.src+"\" style=\"display:none\">";
     save.href = img.src;
+}
+
+function updateColors(sender) {
+    document.getElementById("colors").value = swatchValues[searchStringInArray(sender.innerHTML, swatchNames)];
+}
+
+function searchStringInArray (str, strArray) {
+    for (var j=0; j<strArray.length; j++) {
+        if (strArray[j].match(str)) return j;
+    }
+    return -1;
 }

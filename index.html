@@ -5,6 +5,13 @@
 <meta charset="UTF-8">
 <title>Fragmenter - Beautifully Algorithmic Images</title>
 
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="image_src" href="" / >
+<meta property="og:image" content="" />
+
 <link rel="icon" 
       type="image/png" 
       href="favicon.png">
@@ -14,7 +21,6 @@
 
 <!-- Add custom CSS here -->
 <link href="style.css" rel="stylesheet">
-<link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
 <!-- Analytics -->
 <script>
@@ -26,7 +32,9 @@ ga('create', 'UA-32529139-6', 'google.com');
 ga('send', 'pageview');
 </script>
 
- <!--Scripts--> 
+<!--Scripts--> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="fragmenter.js"></script>
 <script type="text/javascript" src="canvas2image.js"></script>
  
@@ -40,21 +48,25 @@ ga('send', 'pageview');
 
 <div class="row">
 	<div class="col-md-offset-1 col-md-4 text-center">
-		<div class="input-group input-group-sm">
+		<div class="input-group">
 		  <span class="input-group-addon">Width</span>
 		  <input id="width" type="text" class="form-control" value="640">
 		</div>
-		<div class="input-group input-group-sm">
+		<div class="input-group">
 		  <span class="input-group-addon">Height</span>
 		  <input id="height" type="text" class="form-control" value="1136">
 		</div>
-		<div class="input-group input-group-sm">
+		<div class="input-group">
 		  <span class="input-group-addon">Density</span>
 		  <input id="density" type="text" class="form-control" value="10">
 		</div>
 
-		<div class="input-group input-group-sm">
-		  <span class="input-group-addon">Colors</span>
+		<div class="input-group">
+		  	<div class="input-group-btn">
+		     	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Colors <span class="caret"></span></button>
+		        <ul id="colors-dropdown" class="dropdown-menu">
+		        </ul>
+          	</div>
 		  <input id="colors" type="text" class="form-control" value="#D12028, #52A346, #EC7B1F, #49622B, #F8B712, #8E2124, #2DA7A3">
 		</div>
 
