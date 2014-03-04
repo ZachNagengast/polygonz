@@ -57,6 +57,13 @@ var swatchValues=  ["#445555,#889999,#4499DD,#DDDDDD,#AACCCC",
                     "#E96F23,#EC8B26,#ECB842,#6796B8,#5C556A"
                     ];
 
+//update image with return key
+$(document).keypress(function(e) {
+    if (e.which == "13") {
+        updateImage();
+    }
+});
+
 function init()
 {
     //setup interface
@@ -183,6 +190,8 @@ function drawImage(matrix) {
                 }
             }
         }
+
+        ctx.scale(.2,.2);
 }
 
 function saveImage() {
