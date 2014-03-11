@@ -1,3 +1,26 @@
+body { 
+	padding-top: 60px; 
+	
+	background: url(polygonheader.png);
+} 
+
+.container-fluid{
+	padding:0px;
+}
+
+.header{
+  position: relative;
+  width: 100%;
+
+	background-color: #fff;
+ 	background: url();
+ 	background-repeat:repeat-x; 
+}
+
+.navbar-brand{
+	padding: 0px;
+}
+
 .input-group, .row{
-	padding-bottom: 15px;
+	padding: 5px;
 }
