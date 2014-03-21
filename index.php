@@ -77,6 +77,10 @@ ga('send', 'pageview');
 		  <div class="form-control">
 		  	<input id="slider" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="5">
 		  </div>
+		  <span class="input-group-addon">
+ 	        <input id="wrap" type="checkbox" checked>
+ 	      Wrap Colors
+ 	  	  </span>
         </div>
 		
 
@@ -87,12 +91,6 @@ ga('send', 'pageview');
 		        </ul>
           	</div>
 		  <input id="colors" type="text" class="form-control" value="#444,#000,#040404,#080808,#0c0c0c,#101010,#141414,#181818,#1c1c1c,#202020,#242424,#282828,#2c2c2c,#000,#040404,#080808,#0c0c0c,#101010,#141414,#181818,#1c1c1c,#202020,#242424,#282828,#2c2c2c,#000,#040404,#080808,#0c0c0c,#101010,#141414,#181818,#1c1c1c,#202020,#242424,#282828,#2c2c2c">
-		</div>
- 		<div class="input-group">
- 	        <span class="input-group-addon">
- 	        	<input id="wrap" type="checkbox" checked="false">
- 	  		</span>
- 	       	<span class="input-group-addon">Wrap Colors</span>
 		</div>
 
 	<div class="row">
