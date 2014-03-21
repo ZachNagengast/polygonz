@@ -80,7 +80,7 @@ ga('send', 'pageview');
 
 		<div class="input-group">
 		  	<div class="input-group-btn">
-		     	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Colors <span class="caret"></span></button>
+		     	<button type="button" class="btn btn-default dropdown-toggle" id="color-selector" data-toggle="dropdown">Colors <span class="caret"></span></button>
 		        <ul id="colors-dropdown" class="dropdown-menu">
 		        </ul>
           	</div>

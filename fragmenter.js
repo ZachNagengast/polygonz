@@ -241,6 +241,7 @@ function saveImage() {
 }
 
 function updateColors(sender) {
+    document.getElementById('color-selector').innerHTML = sender.innerHTML+' <span class="caret">';
     document.getElementById("colors").value = swatchValues[searchStringInArray(sender.innerHTML, swatchNames)];
     updateImage();
 }
