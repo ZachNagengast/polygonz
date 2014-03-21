@@ -80,15 +80,17 @@ ga('send', 'pageview');
 
 		<div class="input-group">
 		  	<div class="input-group-btn">
-		     	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Colors <span class="caret"></span></button>
+		     	<button type="button" class="btn btn-default dropdown-toggle" id="color-selector" data-toggle="dropdown">Colors <span class="caret"></span></button>
 		        <ul id="colors-dropdown" class="dropdown-menu">
 		        </ul>
           	</div>
 		  <input id="colors" type="text" class="form-control" value="#444,#000,#040404,#080808,#0c0c0c,#101010,#141414,#181818,#1c1c1c,#202020,#242424,#282828,#2c2c2c,#000,#040404,#080808,#0c0c0c,#101010,#141414,#181818,#1c1c1c,#202020,#242424,#282828,#2c2c2c,#000,#040404,#080808,#0c0c0c,#101010,#141414,#181818,#1c1c1c,#202020,#242424,#282828,#2c2c2c">
-		  <span class="input-group-addon">
-	        <input id="wrap" type="checkbox" checked="false">
-	        Wrap Colors
-	      </span>
+		</div>
+		<div class="input-group">
+        	<span class="input-group-addon">
+        		<input id="wrap" type="checkbox" checked="false">
+  			</span>
+        	<span class="input-group-addon">Wrap Colors</span>
 		</div>
 
 	<div class="row">
