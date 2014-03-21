@@ -12,7 +12,7 @@ var distortion;
 //constants
 var DENSITY_MAX=200;
 var SIZE_MAX=10000;
-var SHIM = 1;
+var SHIM = 2;
 
 //presets
 var presetNames = ["iPhone 5", "1080p", "iPhone 4", "iPad","4K","2.5k","720p","Web Tile"];
@@ -241,7 +241,6 @@ function saveImage() {
 }
 
 function updateColors(sender) {
-    document.getElementById('color-selector').innerHTML = sender.innerHTML+' <span class="caret">';
     document.getElementById("colors").value = swatchValues[searchStringInArray(sender.innerHTML, swatchNames)];
     updateImage();
 }
