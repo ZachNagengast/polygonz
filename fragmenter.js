@@ -86,7 +86,7 @@ function init()
     var colorsDropdown = document.getElementById("colors-dropdown");
     colorsDropdown.innerHTML ="";
     for(var i=0;i<swatchNames.length;i++){
-        colorsDropdown.innerHTML += "<li><a href=\"#\" onclick=\"updateColors(this)\">"+swatchNames[i]+"</a></li>";
+        colorsDropdown.innerHTML += "<li><a href=\"#\" onclick=\"updateColors(this.innerHTML)\">"+swatchNames[i]+"</a></li>";
     }
 
     var presetsDropdown = document.getElementById("presets-dropdown");
@@ -96,6 +96,7 @@ function init()
     }
 
     updateImage();
+    queryString();
 }
 
 function updateImage() {
@@ -241,8 +242,8 @@ function saveImage() {
 }
 
 function updateColors(sender) {
-    document.getElementById('color-selector').innerHTML = sender.innerHTML+' <span class="caret">';
-    document.getElementById("colors").value = swatchValues[searchStringInArray(sender.innerHTML, swatchNames)];
+    document.getElementById('color-selector').innerHTML = sender+' <span class="caret">';
+    document.getElementById("colors").value = swatchValues[searchStringInArray(sender, swatchNames)];
     updateImage();
 }
 
@@ -262,27 +263,13 @@ function searchStringInArray (str, strArray) {
     return -1;
 }
 
-var QueryString = function () {
-  // This function is anonymous, is executed immediately and 
-  // the return value is assigned to QueryString!
-  var query_string = {};
-  var query = window.location.search.substring(1);
-  var vars = query.split("&");
-  for (var i=0;i<vars.length;i++) {
-    var pair = vars[i].split("=");
-        // If first entry with this name
-    if (typeof query_string[pair[0]] === "undefined") {
-      query_string[pair[0]] = pair[1];
-        // If second entry with this name
-    } else if (typeof query_string[pair[0]] === "string") {
-      var arr = [ query_string[pair[0]], pair[1] ];
-      query_string[pair[0]] = arr;
-        // If third or later entry with this name
-    } else {
-      query_string[pair[0]].push(pair[1]);
+function queryString () {
+    var query = window.location.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == 'color') {
+            updateColors(pair[1].replace(/\+/g, ' '));
+        }
     }
-  }
-    return query_string;
-} ();
-
-console.log(QueryString);
+}
