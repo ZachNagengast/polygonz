@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Polygons makes HD wallpaper backgrounds for you desktop, iphone, ipad, and android devices.">
     <meta name="author" content="Zauce Technologies">
-    <meta property="og:image" content="" />
-    <link rel="image_src" href="" / >
+    <meta property="og:image" content="image.jpg" />
+    <link rel="image_src" href="image.jpg" / >
     <link rel="icon" type="image/png" href="favicon.ico">
 
     <!-- Bootstrap core CSS -->
@@ -23,6 +23,15 @@
   </head>
  
   <body>
+
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=138658419610639";
+  fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
 
     <!-- Navbar -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigatation" id="navigatation">
@@ -120,8 +129,18 @@
     	  </div>
     
     	  <!-- footer -->
-    	  <div class="row">
-    	  	<p id="footer"> </p> 	
+        <div class="row">
+        
+              <div class="fb-like" data-href="http://polygonz.zaucetech.com" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+              
+               <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://polygonz.zaucetech.com" data-via="zaucetech" data-hashtags="polygonz">Tweet</a>
+              <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+              
+        </div>
+        <div class="row">
+    	  	<p id="footer"> </p><iframe src="http://ghbtns.com/github-btn.html?user=ZachNagengast&repo=polygonz&type=fork&count=true" height="30" width="118" frameborder="0" scrolling="0" style="width:118px; height: 30px;" allowTransparency="true"></iframe>
+               
+          	
     	  </div>
     
     	</div><!-- /.col-lg-6 -->
@@ -150,7 +169,6 @@
     <!--Scripts--> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="canvas2image.js"></script>
     <!--<script type="text/javascript" src="bootstrap-slider.js"></script>-->
     
     <script type="application/dart" src="polygonz.dart"></script>

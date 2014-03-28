@@ -24,3 +24,6 @@ body {
 .input-group, .row{
 	padding: 5px;
 }
+
+.fb-like{display:inline-block;vertical-align:top;}
+.twitter-share-button{display:inline-block;vertical-align:top;}

@@ -1,6 +1,5 @@
 import 'dart:html';
 import 'dart:math';
-import 'dart:async';
 import 'dart:js' as js;
 
 //variables
@@ -191,7 +190,7 @@ void updateImage() {
         y=0;
     }
     
-    var canvas = document.getElementById("canvas");
+    var canvas = (querySelector("#canvas") as CanvasElement);
     //setup the canvas
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
@@ -210,7 +209,6 @@ void drawImage(matrix) {
                   var shimx =i*SHIM;
                   var shimy =j*SHIM;
                   var rnd = new Random();
-//                  print(colors.length %(rnd.nextDouble()* colors.length).toInt());
                   int c = (rnd.nextDouble()* colors.length).toInt();
                   ctx.fillStyle = colors[c];
                   if (wrapColors==true){

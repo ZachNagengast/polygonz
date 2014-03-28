@@ -1,5 +1,5 @@
 name: polygonz
-description: A sample web application
+description: Beautifully Algorithmic Backgrounds
 environment:
   sdk: '>=0.8.10+6 <2.0.0'
 dependencies:
