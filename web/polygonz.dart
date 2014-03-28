@@ -17,7 +17,7 @@ var distortion;
 //constants
 int DENSITY_MAX=200;
 int SIZE_MAX=10000;
-int SHIM = 2;
+int SHIM = 1; //used to fill in gaps between shapes
 
 //presets
 var presetNames = ["iPhone 5", "1080p", "iPhone 4", "iPad","4K","2.5k","720p","Web Tile"];
@@ -84,6 +84,7 @@ final CanvasRenderingContext2D ctx =
 
 void main() {
   init();
+  
   querySelector("#update").onClick.listen((e) => updateImage());
   querySelector("#save").onClick.listen((e) => saveImage());
   for(var i=0;i<swatchNames.length;i++){
@@ -92,6 +93,13 @@ void main() {
   for(var i=0;i<presetNames.length;i++){
     querySelector("#preset-${i}").onClick.listen(updatePresets);
   }
+  
+  window.onKeyUp.listen((KeyboardEvent e) {
+      //user pressed a key
+      if (e.keyCode == KeyCode.ENTER) {
+        updateImage();
+      }
+    });
 }
 
 void init() {
@@ -163,7 +171,7 @@ void updateImage() {
         }
     }
     shapeWidth = (canvasWidth/shapeCountX)+SHIM;
-    shapeHeight = (canvasHeight/shapeCountY+SHIM);
+    shapeHeight = (canvasHeight/(shapeCountY-1))+SHIM; //not sure why this works
 
     //create node matrix
     var i, j, x = 0, y = 0, nodeMatrix = new List();
@@ -187,10 +195,10 @@ void updateImage() {
     //setup the canvas
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
-
+    
     //draw the image
     drawImage(nodeMatrix);
-
+    
 }
 
 void drawImage(matrix) {
@@ -199,8 +207,8 @@ void drawImage(matrix) {
       // Draw a triangle location for each corner, it will return to the first point
           for (var i = 0; i <= shapeCountX; i++) {
               for (var j = 0; j < shapeCountY; j++) {
-                  var shimx =i;
-                  var shimy =j;
+                  var shimx =i*SHIM;
+                  var shimy =j*SHIM;
                   var rnd = new Random();
 //                  print(colors.length %(rnd.nextDouble()* colors.length).toInt());
                   int c = (rnd.nextDouble()* colors.length).toInt();
@@ -228,7 +236,7 @@ void drawImage(matrix) {
                   } else {
                       if(j%2 == 1) {
                           // Draw down triangle
-                          // ctx.fillStyle = "#aa0000";
+                          // ctx.fillStyle = "#aa0000"; //used for testing
                       ctx.moveTo(matrix[i-((i<1) ? 0 : 1)][j][0]-shimx, matrix[i-((i<1) ? 0 : 1)][j][1]-shimy);
                       ctx.lineTo(matrix[i][j+((j>=shapeCountY-1) ? 0 : 1)][0]-shimx, matrix[i][j+((j>=shapeCountY-1) ? 0 : 1)][1]-shimy);
                       ctx.lineTo(matrix[i+((i>=shapeCountX) ? 0 : 1)][j][0]-shimx, matrix[i+((i>=shapeCountX) ? 0 : 1)][j][1]-shimy);
