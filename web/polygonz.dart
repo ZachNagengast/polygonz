@@ -84,16 +84,23 @@ final CanvasRenderingContext2D ctx =
 
 void main() {
   init();
+  querySelector("#update").onClick.listen((e) => updateImage());
+  querySelector("#save").onClick.listen((e) => saveImage());
+  for(var i=0;i<swatchNames.length;i++){
+    querySelector("#swatch-${i}").onClick.listen(updateColors);
+  }
+  for(var i=0;i<presetNames.length;i++){
+    querySelector("#preset-${i}").onClick.listen(updatePresets);
+  }
 }
 
 void init() {
   //setup interface
-  var colorsDropdown = document.getElementById("colors-dropdown");
   querySelector("#colors-dropdown").innerHtml ="";
   for(var i=0;i<swatchNames.length;i++){
     querySelector("#colors-dropdown").innerHtml += "<li><a href=\"\" id=\"swatch-${i}\">"+swatchNames[i]+"</a></li>";
   }
-
+  
   var presetsDropdown = document.getElementById("presets-dropdown");
   querySelector("#presets-dropdown").innerHtml ="";
   for(var i=0;i<presetNames.length;i++){
@@ -114,7 +121,7 @@ void updateImage() {
     var densityInputY = document.getElementById("densityY");
     var distortionSliderInput = document.getElementById("slider");
     var wrapColorsInput = document.getElementById("wrap");
-    var colorsInput = querySelector("#colors").text;
+    var colorsInput = document.getElementById("colors").value;
 
     canvasWidth = int.parse(widthInput.value);
     canvasHeight = int.parse(heightInput.value);
@@ -141,21 +148,20 @@ void updateImage() {
     wrapColors = wrapColorsInput.checked;
 
     //parse colors
-    colors=[""];
+    colors=new List();
     var colorCount = -1;
     var colorChars = "0123456789abcdefABCDEF";
     for (var i = 0; i<colorsInput.length; i++) {
         //part of the current color
-        if(colorChars.indexOf(colorsInput.charAt(i))>-1){
-            colors[colorCount]+= colorsInput.charAt(i);
+        if(colorChars.indexOf(colorsInput[i])>-1){
+            colors[colorCount]+= colorsInput[i];
         }
         //found a new color
-        if (colorsInput.charAt(i) == "#"){
+        if (colorsInput[i] == "#"){
             colorCount++;
-            colors[colorCount]= "#";
+            colors.add("#");
         }
     }
-    
     shapeWidth = (canvasWidth/shapeCountX)+SHIM;
     shapeHeight = (canvasHeight/shapeCountY+SHIM);
 
@@ -188,7 +194,7 @@ void updateImage() {
 }
 
 void drawImage(matrix) {
-  var colorValues = [[]];
+  var colorValues = new List();
 
       // Draw a triangle location for each corner, it will return to the first point
           for (var i = 0; i <= shapeCountX; i++) {
@@ -196,12 +202,13 @@ void drawImage(matrix) {
                   var shimx =i;
                   var shimy =j;
                   var rnd = new Random();
-//                  int c = colors.length % (rnd.nextDouble()*colors.length).round;
-                  ctx.fillStyle = colors[0];
+//                  print(colors.length %(rnd.nextDouble()* colors.length).toInt());
+                  int c = (rnd.nextDouble()* colors.length).toInt();
+                  ctx.fillStyle = colors[c];
                   if (wrapColors==true){
                       //user wants to wrap the colors
                       if(i==shapeCountX){
-//                          ctx.fillStyle = colorValues[j];
+                          ctx.fillStyle = colorValues[j];
                       }
                   }
                   ctx.beginPath();
@@ -236,76 +243,43 @@ void drawImage(matrix) {
                   ctx.fill();
 
                   //store the wrapping color values
-//                  if (i<1) {
-//                      colorValues[0] = ctx.fillStyle;
-//                  }
+                  if (i<1) {
+                      colorValues.add(ctx.fillStyle);
+                  }
               }
           }
+          print("Updarted");
 }
 
 void saveImage() {
     var canvas = document.getElementById("canvas");
     var save = document.getElementById("save");
-    var img = Canvas2Image.saveAsPNG(canvas, true);
-    save.innerHTML = save.innerHTML+"<img src=\""+img.src+"\" style=\"display:none\">";
-    save.href = img.src;
+    save.innerHtml = save.innerHtml+"<img src=\""+canvas.toDataUrl('image/png')+"\" style=\"display:none\">";
+    save.href = canvas.toDataUrl('image/png');
 }
 
-void updateColors(sender) {
-    document.getElementById('color-selector').innerHTML = sender.innerHTML+' <span class="caret">';
-    document.getElementById("colors").value = swatchValues[searchStringInArray(sender.innerHTML, swatchNames)];
+void updateColors(Event e) {
+    Element sender = e.currentTarget;
+    e.preventDefault();
+    document.getElementById('color-selector').innerHtml = sender.innerHtml+' <span class="caret">';
+    document.getElementById("colors").value = swatchValues[searchStringInArray(sender.innerHtml, swatchNames)];
     updateImage();
 }
 
-void updatePresets(sender) {
-    document.getElementById("width").value = presetValues[searchStringInArray(sender.innerHTML, presetNames)][0];
-    document.getElementById("height").value = presetValues[searchStringInArray(sender.innerHTML, presetNames)][1];
-    document.getElementById("densityX").value = presetValues[searchStringInArray(sender.innerHTML, presetNames)][2];
-    document.getElementById("densityY").value = presetValues[searchStringInArray(sender.innerHTML, presetNames)][3];
-    document.getElementById("presets").innerHTML = presetNames[searchStringInArray(sender.innerHTML, presetNames)]+ " <span class=\"caret\"></span>";
+void updatePresets(Event e) {
+    Element sender = e.currentTarget;
+    e.preventDefault();
+    document.getElementById("width").value = presetValues[searchStringInArray(sender.innerHtml, presetNames)][0];
+    document.getElementById("height").value = presetValues[searchStringInArray(sender.innerHtml, presetNames)][1];
+    document.getElementById("densityX").value = presetValues[searchStringInArray(sender.innerHtml, presetNames)][2];
+    document.getElementById("densityY").value = presetValues[searchStringInArray(sender.innerHtml, presetNames)][3];
+    document.getElementById("presets").innerHtml = presetNames[searchStringInArray(sender.innerHtml, presetNames)]+ " <span class=\"caret\"></span>";
     updateImage();
 }
 
 int searchStringInArray (str, strArray) {
     for (var j=0; j<strArray.length; j++) {
-        if (strArray[j].match(str)) return j;
+        if (strArray[j] == str) return j;
     }
     return -1;
-}
-
-class Array2d<T> {
-  List<List<T>> array;
-  T defaultValue = null;
-  
-  Array2d(int width, int height, {T this.defaultValue}) {
-    array = new List<List<T>>();
-    this.width = width;
-    this.height = height;
-  }
-  
-  operator [](int x) => array[x];
-  
-  void set width(int v) {
-    while (array.length > v)
-      array.removeLast();
-    while (array.length < v) {
-      List<T> newList = new List<T>();
-      if (array.length > 0) {
-        for (int y = 0; y < array.first.length; y++)
-          newList.add(defaultValue);
-      }
-      array.add(newList);
-    }
-  }
-  
-  void set height(int v) {
-    while (array.first.length > v) {
-      for (int x = 0; x < array.length; x++)
-        array[x].removeLast();
-    }
-    while (array.first.length < v) {
-      for (int x = 0; x < array.length; x++)
-        array[x].add(defaultValue);
-    }
-  }
 }
